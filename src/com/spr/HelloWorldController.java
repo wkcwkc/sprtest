@@ -1,0 +1,65 @@
+package com.spr;
+
+import java.io.File;
+import java.io.IOException;
+
+import iservice.imyservice;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import model.mymodel;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+
+import com.contextutil.SpringContextUtil;
+
+@Controller
+@RequestMapping(value = "/hello")
+public class HelloWorldController extends AbstractController {
+	@Override
+	@RequestMapping(value = { "", "/", "/login" })
+	public ModelAndView handleRequestInternal(HttpServletRequest req,
+			HttpServletResponse resp) throws Exception {
+		// 1、收集参数、验证参数
+		// 2、绑定参数到命令对象
+		// 3、将命令对象传入业务对象进行业务处理
+		// 4、选择下一个页面
+
+		ModelAndView mv = new ModelAndView();
+		// 添加模型数据 可以是任意的POJO对象
+		mv.addObject("mes", "Hello World!");
+		// 设置逻辑视图名，视图解析器会根据该名字解析到具体的视图页面
+		mv.setViewName("hello");
+		// resp.getWriter().write("<a href='http://localhost:8080/sprtest/hello'>this</a>");
+
+		return mv;
+	}
+
+	@RequestMapping(value = "/file")
+	public String save(MultipartHttpServletRequest request,
+			HttpServletResponse rsp, Model model) throws Exception {
+		MultipartFile multipartFile = (MultipartFile) request.getFile("myfile");
+
+		if (!multipartFile.isEmpty()) {
+			
+			File desfile=new File("E:\\"+multipartFile.getOriginalFilename());
+			desfile.setWritable(true, false);
+			FileUtils.writeByteArrayToFile(desfile, multipartFile.getBytes());
+			model.addAttribute("mes", multipartFile.getOriginalFilename());
+		} else {
+			model.addAttribute("mes", "fail");
+		}
+		return "hello";
+
+	}
+
+}

@@ -1,0 +1,37 @@
+body {
+	font-size: 10pt;
+	font-family: verdana,Geneva,Arial;
+	color: green;
+	line-height: 20pt;
+	padding-left: 5pt;
+	padding-right: 5pt;
+	padding-top: 5pt;
+	
+}
+
+head{
+	font-size: 10pt;
+	font-family: verdana,Geneva,Arial;
+	color: blue;
+
+}
+
+.red{
+
+	font-size: 10pt;
+	font-family: verdana,Geneva,Arial;
+	color: red;
+
+}
+h1{
+
+	font-size: 20pt;
+	font-family: verdana,Geneva,Arial;
+	color: green;
+	border-style:double;
+	border-color:red;
+	border-width:2pt;
+	
+	background-color:#0000f0;
+
+}
